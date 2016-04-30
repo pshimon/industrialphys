@@ -1,0 +1,248 @@
+ <!doctype html >
+<html >
+<head>
+<title>
+</title>
+ <link rel="stylesheet" href="styles.css">   
+<style>
+</style>
+</head>
+
+<body >
+<header>
+    Shimon Panfil: Industrial Physics and Simulations<br>
+    Modeling Programming Optimization Algorithms Data Analysis	    
+</header>
+
+<nav>
+    <a href="index.html" title="industrialphys.com">Home</a>
+    <a href="mycv.html" title="CV of Shimon Panfil">My CV</a>
+    <a href="step.html" title="Scientific and Technical Efficient Programming">STEP</a>
+    <a href="notes.html" title= "Talks, Papers, Working notes" >Notes</a>
+    <a href="spips.html" title= "Industrial Physics: what is it?" >SPIPS</a>
+    <a href="wordpress-4.5/index.php" title="wordpress powered">New Site</a>
+</nav>
+<aside id="goto">
+    <h2>Go to	</h2>
+    <p>I believe that many programmers remember the discussion on goto and good programming style. Actually all the problem was lack of fast good quality terminals. Nowadays everybody likes anchors which are logically nothing more than another incarnation of goto. That said I am going to tell true story about goto (crawl to, really).</p>
+
+    <p>It was the middle of 70s. My friend S. Emel'yanov, at that time system programmer in the computer center of the Institute for Mathematics and me, a student, were trying to install REDUCE-2 on IBM360. Actually it was "russian analog" of IBM machine with incomplete and poorly translated documentation. Core memory was 512K and REDUCE demanded 400K at least. So one  night we declared "system maintenance time" threw out all the user programs and utilities not necessary for the continued operation of the system and gave it a shot.</p>
+
+    <p> Not enough memory! I don't rememeber exact error message. It was not very useful, it merely recommended to call a system programmer. Thanks! Fortunately we had the sources. We decided to print the relevant part (approximately 50m of folded paper) and look through all calls to getmain (as far as I can remember this was the name of the function).</p>
+
+    <p> The corridor was long enough for us to spread out our paper and we start crawling back and forth locating all calls to getmain and trying to understand what every one was doing. At that time I thought that goto really is one the Devil's major triumphs.</p>
+
+    <p> We found it. The input buffer was too small. We used to work with cards so we've automatically defined in JCL - Job Control Language (Oh, where it is now?) buffer size as one card (or line if you prefer it this way). However, by default REDUCE attempted to read a block of 20 or 24 lines at once.</p>
+
+</aside>
+<h1>Scientific and Technical Efficient Programming</h1>
+
+<p>Computers have become an important part of scientific research
+and technical development. 
+They are essential both for collecting and analyzing experimental 
+data and for solving complicated mathematical problems
+arising from theoretical considerations. Due to modern computing
+environments many scientists and engineers  do not any programming
+in compiled languages like C or Fortran at all, but if they do they
+should do it in efficient way.</p>
+
+<p>Surely scientific programming as any other one needs interaction with operating system,
+user interface, etc... - dynamical languages like Matlab, Python, Tcl/Tk are good for that.
+I want to emphasize that I am talking here about core computational part, e.g. like library 
+callable from dynamical language.
+
+<p>It is hard to define exactly what is Scientific and Technical 
+Efficient Programming (STEP) but two main features are clear.
+<dl>
+    <dt> <b>It is not evident whether the result is right or wrong.</b></dt>
+    <dd> It is even difficult to say what do we mean by "wrong",
+    it might be bug in the code or inaccuracy in the model or numerical 
+    instability, and it is much more difficult to prove that 
+    result is correct.</dd>
+    <dt> <b>Scientific application should always be tuned to get peak performance.</b><dt>
+    <dd> The more computer power we have the more accurate results we can get, more
+    complex problem can be solved.
+</dl>
+</p>
+<p>These characteristics make standard programming and debugging techniques 
+described in the most of programming books and courses useless. STEP 
+demands scientific knowledge, the proficiency in numerical analysis, 
+computer architecture and programming languages. All attempts to screen 
+the programmer from "gory details" are bound to failure, unless problem 
+is very simple.</p>
+
+<h2> Which Language?</h2>
+<p> <strong>In my opinion</strong> only two of modern languages namely C/C++
+and FORTRAN/Fortran are fit for STEP. (I see C++ as improved C and Fortran as
+improved FORTRAN, no Objects, Classes, and all that.) None of them is better than other and both have their strong
+and weak points. One can write good or bad (or ugly) program in any language.
+From the performance point of view nothing can beat assembler.</p>
+<blockquote>	    
+    All function that affects performance is written in assembler
+    and C code is just used for wrapper of assembler functions or
+    complicated functions. Also I use many inline assembler functions,
+    unfortunately most of commercial compiler can't handle inline
+    assembler.<br>
+    Kazushige Goto,GotoBLAS2 FAQ
+</blockquote>
+<p>C is more flexible and closer to hardware but  some important constructions are		    absent, mainly multidimensional arrays (though it has more 
+flexible but less efficient one - array of arrays).
+Working in industry I used C and C++ for numerical calculations and 
+even rewrote some FORTRAN codes. However I recognized that most of my code 
+deals with very rigid structures which simply reflect standard 
+FORTRAN ones. Actually it is not surprising since most of numerical algorithms 
+were desingned with FORTRAN in mind.</p> 
+<p> One the other hand most of FORTRAN deficiencies were corrected in Fortran.
+It is modern programming language, with dynamic memory allocation, standard C
+interoperability and a lot of other good things. 
+<h3> Why not OOP? </h3>
+<p> Every few years new generation of programmers declare new programming paradigm, the right way!
+I am not old enough to remember the programming before Fortran era, but I can recall some computer scientists talking about ugly messy Fortran and elegant Algol. For example strict format of Fortran code was compared to free style of Algol: it is ugly to always start at 7 column and put only one operator in line, programming language should be similar to natural language in this regard, white spaces should not matter. Now Python gives meaning to white spaces again.</p>
+<dl>
+    <dt><h4>Goto and structured programming</h4> </dt> <dd>A lot of discussions lead to understanding of the simple fact the absence of goto does not necessarily make the program comprehensible, in many cases just on the contrary. For example exit from deeply embedded loop is much clear with goto than using any other method. Honestly,  the html href is goto on steroids, is it not? Yes sometimes goto is harmful (see e.g. <a href=#goto>here</a>). </dd>
+    <dt><h4> Object Oriented Programming</h4> </dt> <dd> Combines data and procedures acting upon this data into single entity - object. Encapsulation, inheritance, ... . Works very well in textbooks. Life is more complicated than simple object hierarchy, so every real project ends with multiple inheritance, friend methods, ... . Resulting code is bloated and much less understandable than Fortran with goto.</dd>
+    <dt><h4> Generic programming</h4> </dt> <dd>Nice theoretical work, very elegant ..., containers, iterators, .... . Probably with computer with infinite memory and speed it might work.
+I like STL very much. A number of years ago I have received nice bonus in return of  considerable performance boost I managed to achieve, simply erasing STL from code, which I inherited from another guy. </dd>
+</dl>    
+<aside>
+    <h3> FORTRAN or Fortran</h3>
+    These are diferent languages, relation between FORTRAN  and Fortran  resembles that between C and modern C++. Both C and FORTRAN  are small and easy to learn (though both have some strange features historically motivated) while both C++ and Fortran are large and bloated, however they improved their predecessors in a way. Some of Fortran improvements are:
+    <ul>
+	<li> Dynamic memory allocation;</li>
+	<li> Pointers (different form C pointers!);</li>
+	<li> C and OS interoperability;</li>
+	<li> derived types (similar to C-structures);</li>
+	<li> modules;</li>
+	<li> recursive procedures;</li>
+    </ul>
+</aside>
+
+   <h3>C++ (is not) for Numerical Programming</h3>
+    <p>This part is actually a set of commented quotes from the  
+    Bjarne Stroustrup's book: "The C++ Programming Language (Fourth Edition)".
+    Note that he talks about "numerical computation" not "numerical programming" and this make a <b>huge</b> difference. In many cases "numerical computation" needs no "numerical programming" standard libraries do all hard work.</p>
+    <blockquote>
+    C++ wasn't specifically designed with numerical computation in mind. However,
+    much numerical, scientific, and engineering computation is done in C++. A
+    major reason for this is that traditional numerical work must often be
+    combined with graphics and with computations relying on data structures that
+    don't fit into the traditional Fortran mold (p. 31)."
+    </blockquote>
+    Yes, that's right. "Traditional numerical work" is done by C or FORTRAN libraries 
+    ( e.g. lapack). BTW he should say FORTRAN, because Fortran is another language
+    rougly corrsponding to FORTRAN as C++ to C.
+    <blockquote>
+    C++ wasn't designed primarily with numerical computation in mind. However, 
+    C++ is heavily used for numerical computation and the standard library reflects 
+    that (p. 128).
+    </blockquote>
+    No rational explanation.
+    <blockquote>
+    The vector described in 4.4.1 was designed to be a general mechanism for holding
+    values, to be flexible, and to fit into the architecture of containers, iterators, 
+    and algorithms. However, it does not support mathematical vector operations. 
+    Adding such operations to vector would be easy, but its generality and flexibility 
+    precludes optimizations that are often considered essential for serious numerical 
+    work. Consequently, the standard library provides  a vector -like template, 
+    called valarray, that is less general and more amenable to optimization for 
+    numerical computation. The usual arithmetic operations and the most common 
+    mathematical functions are supported for valarrays. In particular, 
+    valarray offers stride access to help implement multidimensional computations 
+    (p. 131).
+    </blockquote>
+    Most modern books suggest using vector for matrix operations, they even do not
+    mention valarray. (Which is not that great also.)
+    <blockquote>
+    Don't try to do serious numeric computation using only the language; use libraries;
+    (p. 132)
+    </blockquote>
+    Really this advice means: don't do <strong> numerical programming </strong> in C++.
+    <blockquote>
+    The rules for linkage of templates are the rules for linkage of the generated classes    and functions (15.2, 15.2.3). This implies that if the layout of a class template or     the definition of an inline function template changes, all code that uses that 
+    class or function must be recompiled. For templates defined in header files and 
+    included "everywhere" this can imply a lot of recompilation because templates 
+    tend to include a lot of information in header files, more than non-template code 
+    using .cpp files. In particular, if dynamically linked libraries are used, care 
+    has to be taken that all uses of a template are consistently defined.
+    Sometimes, it is possible to minimize the exposure to changes in complicated template    libraries by encapsulating their use in functions with non-template interfaces. For 
+    example, I might like to implement some computations using a general numerical 
+    library supporting a wide variety of types (e.g., Chapter 29, 40.4, 40.5, 40.6). 
+    However, I often know the type used for my calculations. For example, in a program 
+    I may consistently use doubles and vector &lt; double &gt;. In that case, I could
+    define:
+    <pre>
+	double accum(const vector &lt;double&gt; &amp; v)
+	{
+	    return accumulate(v.begin(),v.end(),0.0);
+	}
+    </pre>
+    Given that, I can use the simple non-templated declaration of accum() in my code:
+    double accum(const vector&ltdouble&gt;&amp; v);
+    The dependence on std::accumulate has disappeared into a .cpp file that is not seen 
+    by the rest of my code. Also, I suffer the compilation-time overhead of a 
+    #include&lt;numeric&gt;only in that .cpp file. Note that I took the opportunity to 
+    simplify the interface to accum() compared to std::accumulate. The generality that 
+    is a key attribute of good template libraries can be seen as a source of complexity
+    in a particular application. I suspect that I would not use this technique for 
+    standard-library templates. Those are stable over years and known to the 
+    implementations. In particular, I did not bother to try to encapsulate 
+    vector &lt;double&gt;. However, for more complex, esoteric, or frequently changing 
+    template libraries, such encapsulation can be useful (p. 697)
+    </blockquote>
+    This long quote expains exactly why C++ is not suitable for numerical programming:
+    a lot of unnecessary work both from programmer and from compiler!
+    <blockquote>    
+    vallarray &lt;T&gt; A numerical vector with vector operations, but with restrictions
+    to encourage high-performance implementations;use only if you do a lot of
+    vector arithmetic (p. 888).
+    </blockquote>
+    Poor cousin of FORTRAN array.
+    <blockquote>
+    Much numeric work relies on relatively simple single-dimensional vectors of 
+    floating-point values. In particular, such vectors are well supported by 
+    high-performance machine architectures, libraries relying on such vectors are 
+    in wide use, and very aggressive optimization of code using such vectors is 
+    considered essential in many fields. The valarray from &lt;valarray&gt; is a 
+    single-dimensional numerical array. The fundamental idea of valarray was to 
+    provide Fortran-like facilities for dense multidimensional arrays with Fortran-like
+    opportunities for optimization. This can only be achieved with the active support 
+    of compiler and optimization suppliers and the addition of more library support 
+    on top of the very basic facilities provided by valarray. So far, that has not 
+    happened for all implementations (p. 1166).
+    </blockquote>
+    So use FORTRAN/Fortran for numerical programming!
+    <blockquote>
+    All of these containers can be seen as providing specialized services needed by large    communities of programmers. No single container could serve all of these needs 
+    because  some needs are contradictory, for example, "ability to grow" vs. 
+    "guaranteed to be allocated in a fixed location", and "elements do not move 
+    when elements are added" vs. "contiguously allocated." Furthermore, a
+    very general container would imply overhead deemed unacceptable for individual
+    containers(p. 974).
+    </blockquote>
+    Yes. Generality kills efficiency and wise versa. The most important here is "communities of programmers", C++ is for programmers who do not know and do not care about algorithm construction and application of results.
+    <blockquote>
+    C++ was not designed primarily with numeric computation in mind. However, numeric 
+    computation typically occurs in the context of other work - such as database access,     networking, instrument control, graphics, simulation, and financial analysis - so C++    becomes an attractive vehicle for computations that are part of a larger system 
+    (p. 1159). 
+    </blockquote> 
+    Especially if numerical part is not written in C++.
+    <blockquote>
+    Furthermore, numeric methods have come a long way from being simple loops over 
+    vectors of floating-point numbers. Where more complex data structures are needed 
+    as part of a computation, C++'s strengths become relevant(p. 1160). 
+    </blockquote>
+    Plain C is better, when FORTRAN is too rigid.
+    <blockquote>
+    The net effect is that  C++ is widely used for scientific, engineering, financial, 
+    and other computation involving sophisticated numerics. 
+    Consequently, facilities and techniques   supporting such computation 
+    have emerged(p. 1160).
+    </blockquote>
+    Yes, and here is the problem.
+<footer>		
+    e-mail: shimon dot panfil at gmail dot com. Please add SPIPS to subject.
+</footer>
+</body>
+</html>
+	
+

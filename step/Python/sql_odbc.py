@@ -1,0 +1,98 @@
+#! python
+########################################################################
+# Shimon Panfil: Industrial Physics and Simulations                   ##
+# http://industrialphys.com                                           ##
+# THE SOFTWARE IS PROVIDED "AS IS", USE IT AT YOUR OWN RISK           ##
+########################################################################
+
+import pyodbc
+import numpy as np
+def write_arr2(a,filename):
+    (n2,n1)=a.shape
+    nn=np.zeros(2,int)
+    nn[0]=n1
+    nn[1]=n2
+    fid = open(filename, 'wb')
+    nn.tofile(fid)
+    a.tofile(fid)
+    fid.close()
+
+project_name='SN1_SCC-shimon'
+cnx=pyodbc.connect('DRIVER={SQL Server};SERVER=(local)\MTD;DATABASE=master;UID=sa;PWD=Mtd123')
+curs = cnx.cursor()
+ss="SELECT [Id],[Name] FROM [Application].[dbo].[ProjectHeaders]" 
+lst = curs.execute(ss)
+rows = curs.fetchall()
+for x in rows:
+    if x[1]==project_name :
+        pid=x[0]
+        break
+cnx.close()
+print('project_name=',project_name,'   project_id=',pid)
+dbname='Project_'+pid
+cs='DRIVER={SQL Server};SERVER=(local)\MTD;DATABASE=%s;UID=sa;PWD=Mtd123'% dbname
+print(cs) 
+cnx=pyodbc.connect(cs)
+curs = cnx.cursor()
+def get_proj_data(cu,spectrum,polarization,na,gtype,direction):
+    sstr='s='+spectrum
+    pstr='_p='+str(polarization)
+    nstr='_n='+str(na)
+    gstr='_g='+str(gtype)
+    dstr='_d='+str(direction) 
+    ttl=sstr+pstr+nstr+gstr+dstr
+    s1=" ZPosition,"
+    s2=" [dbo].[FourierHarmonic].[Order] as ordr,"
+    s3=" A,B"
+    select_str=" SELECT "
+    for s in [s1,s2,s3]:
+        print(s)
+        select_str=select_str+s
+
+    f1=" [dbo].[PetalAtFocusContext],"
+    f2=" [dbo].[PetalAtFocusesToPetalCandidates],"
+    f3=" [dbo].[FourierHarmonic],"
+    f4=" [dbo].[PetalCandidate],"
+    f5=" [dbo].[GDSMapping],"
+    f6=" [dbo].[HWSubsystemImaging]"
+    from_str=" FROM "
+    for f in [f1,f2,f3,f4,f5,f6]:
+        print(f)
+        from_str=from_str+f
+
+    w1=" [dbo].[PetalAtFocusContext].Id=[dbo].[PetalAtFocusesToPetalCandidates].PetalAtFocusRefId"
+    w2=" and [dbo].[FourierHarmonic].PetalAtFocusContext_Id=[dbo].[PetalAtFocusContext].Id"
+    w3=" and [dbo].[PetalAtFocusesToPetalCandidates].PetalCandidateRefId = [dbo].[PetalCandidate].Id"
+    w4=" and [dbo].[GDSMapping].NominalGeometry_Id = [dbo].[PetalCandidate].NominalGeometry_Id"
+    w5=" and [dbo].[PetalCandidate].HWSubsystem_Id= [dbo].[HWSubsystemImaging].Id"
+    w6=" and [dbo].[PetalCandidate].Direction = "+str(direction)
+    w7=" and [dbo].[PetalCandidate].GratingType = "+str(gtype)
+    w8=" and [dbo].[HWSubsystemImaging].[ColorFilter] = '%s'" % spectrum
+    w9=" and [dbo].[HWSubsystemImaging].[Polarization] = " + str(polarization)
+    w10=" and [dbo].[HWSubsystemImaging].[NaOption] = " +str(na)
+    where_str=" WHERE "
+    for w in [w1,w2,w3,w4,w5,w6,w7,w8,w9,w10]:
+        print(w)
+        where_str=where_str+w
+
+    print(ttl)
+    ss=select_str+from_str+where_str+" ORDER BY ZPosition,ordr"
+    print(ss)
+    lst = cu.execute(ss)
+    print('rowcount=' + str(cu.rowcount))
+    rows = cu.fetchall()
+    nc=len(rows[0])
+    nr=len(rows)
+    a=np.zeros((nr,nc),dtype=float)
+    for i in range(nr):
+        for j in range(nc):
+            a[i,j]=rows[i][j]
+    
+    fname= ttl+'.flt'
+    write_arr2(a,fname)
+    print("file: "+fname +" is written")
+
+
+dt=get_proj_data(curs,spectrum="White",polarization=0,na=0,gtype=1,direction=0)
+
+

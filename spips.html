@@ -1,0 +1,158 @@
+<!doctype html >
+<html >
+<head>
+<title>
+</title>
+ <link rel="stylesheet" href="styles.css">   
+<style>
+</style>
+</head>
+
+<body >
+<header>
+    Shimon Panfil: Industrial Physics and Simulations<br>
+    Modeling Programming Optimization Algorithms Data Analysis	    
+</header>
+
+<nav>
+    <a href="index.html" title="industrialphys.com">Home</a>
+    <a href="mycv.html" title="CV of Shimon Panfil">My CV</a>
+    <a href="step.html" title="Scientific and Technical Efficient Programming">STEP</a>
+    <a href="notes.html" title= "Talks, Papers, Working notes" >Notes</a>
+    <a href="spips.html" title= "Industrial Physics: what is it?" >SPIPS</a>
+    <a href="wordpress-4.5/index.php" title="wordpress powered">New Site</a>
+</nav>
+<div class=epigraph>
+    <q><em>Make everything as simple as possible but not simpler.</em></q><br>
+		    (attributed to Albert Einstein)
+</div>
+    
+	   <h1>Industrial Physics</h1>
+	    <p>Industrial physics is not a branch of physics, 
+	    generally it means solving of practical real life problems 
+	    using the knowledge of physics. Contrary to what I call "inventor's 
+	    approach":try this,try that, keep trying until you get something working;
+	    or engineer's approach: this is a problem of such-and-such type hence use
+	    this-and_that method - industrial physics is based on deep 
+	    <em>understanding</em> of the problem. It may be seen as practical 
+	    application of  the <a href=#spips>SPIPS way</a>.</p>
+	    <p>I am physicist by training, trade, and style of thinking ... . 
+	    Programming and computers have been essential part of my work for more 
+	    than thirty years, but I do not consider myself professional programmer.</p>
+	    <p>It is not about the quality, it is about the approach. 
+	    Making mathematical model of phenomena or process, scientist tries to be 
+	    as accurate as possible he rarely thinks of computational efficiency. 
+	    Mathematician designs the algorithm provided with fixed mathematical model. 
+	    Programmer implements given algorithm. None of them tries to change the model.
+	    Imagine taxi driver on his day off, he drives to some place probably using 
+	    all tricks of trade to do it in a most efficient way, 
+	    exactly as on working day, but he has also additional options: he may decide
+	    to change destination or stay at some place for a while etc. </p>
+	    <p>I do not sell software. I sell a solution to the given problem and 
+	    my code is only a part of this solution. I build some mathematical model,
+	    derive equations which describe it, design the algorithm which solves 
+	    these equations and implement the algorithm to get results in 
+	    comprehensible way. Considering the big picture allows me
+	    not to waste efforts improving inessential parts but concentrate 
+	    on real show stoppers. Suppose that a client
+	    asks for an algorithm for effective computation of matrix determinant, 
+	    however he wants to do the calculations of inverse  matrix, but actually
+	    needs  to solve some system of linear equations. Mathematically all
+	    three problems are equivalent but in numerical computation they 
+	    are completely different unless matrix is small.</p>
+	    
+
+	    	    <aside id=spips>
+	    <h1 > SPIPS (Eightfold) Way</h1>
+		    <dl>
+		<dt> <b>Learn!</b></dt>
+		<dd>Working with real-life problems you will need the following:
+		<ul>
+		    <li> scientific and/or engineering knowledge;</li>
+		    <li> numerical analysis and programming; </li>
+		    <li> knowledge of modern computer architecture;</li>
+		    <li> source code (to have full power for optimization and tuning);</li>
+		    <li> experiment with different algorithms and implementations.</li>
+		</ul> 
+		</dd>
+		<dt> <b>Think! </b> </dt>
+		<dd>Analyse critically what you read or hear.
+		    The complexity of modern machines and compilers is so great that
+		    theoretical estimations of algorithm complexity (bread and 
+		    butter of computer scientists) may be misleading. There are too 
+		    many layers of transformation from source code to hardware, 
+		    so small changes in in the source code may change performance greatly. 
+		    The speed of innovation in hardware and compilers is so high that 
+		    well known and tuned algorithm may already become obsolete 
+		    or at least suboptimal.
+		</dd>
+		<dt><b>See big picture! </b></dt>
+		<dd>Your customers may have only vague understanding of 
+		    computing but they are professionals in their field. 
+		    Talk to them, be sure that you understand the problem, 
+		    get as much information as possible concerning ranges 
+		    of variables, relative probability of different scenarios and all that. 
+		</dd>
+		<dt> <b>Use the right instrument for the job! </b></dt>
+		<dd> More complicated instruments are not necessary better. 
+		    In many cases it is less work to write few tens of lines 
+		    in C than to install large library and tune it properly. 
+		</dd>
+		<dt> <b>Don't copy code! </b></dt>
+		<dd>
+		    <ul>
+			<li>It may be illegal.</li>
+			<li>It may be dangerous.</li>
+			<li> Even code written by a Great Master may be 
+			   suboptimal for your specific case.</li>
+		    </ul>
+		    Study the code, understand it and write your own.
+		</dd>
+		<dt> <b>Don't leave loose ends!</b></dt> 
+		<dd> Fix any problem as you find it. Small bug may be a symptom 
+		    of serious flaw in algorithm design or understanding of the problem. 
+		    Don't make quick and dirty workarounds. 
+		    Find the reason and fix the problem properly.
+		</dd>
+		<dt> <b>Don't be overprotective!</b></dt>
+		<dd>Remember that a crash may be annoying but a wrong answer is disaster.
+		</dd> 
+		<dt> <b>Don't be a slave to the rules!  </b></dt>
+		<dd> Including those above.
+		</dd>
+	    </dl>
+	</aside>
+
+	    Formally solution consists of three stages:
+	    <dl>
+		<dt> <b>modeling</b></dt>
+		<dd>Building of proper physical model,not too general and 
+		not oversimplified,making mathematical description of the model;</dd>
+		<dt> <b>algorithm design and implementation</b></dt> 
+		<dd> see Scientific and Technical Efficient Programming - 
+		<a href="step.html">STEP </a></dd>
+		<dt><b>data analysis</b></dt> <dd> running computations/simulations 
+		with actual data, making physical measurements, comparison with 
+		results produced by computer.</dd>
+	    </dl>
+	    In practice these steps are usually interconnected and are frequently done 
+	    in parallel. 
+	    <p>Let us look at some specific example - electromagnetic scattering.
+	    It is very important problem both from theoretial point of view 
+	    (e.g. quantum field theory and particle physics) and in practice 
+	    (e.g. radar cross-sectons, optical inspection and metrology). 
+	    Well known Maxwell equations form foundation for all kinds of 
+	    electromagnetic calculations, here I'll show how industrial physics 
+	    approach differs from traditonal one. </p>
+	    <p> The key point is the observation that (relative) magnetic 
+	    permeability is very close to unity unless we work with magnetic media. 
+	    This fact greatly simplifies all the calculations. Traditionally  
+	    algorithms are designed for arbitrary magnetic permeability which 
+	    is set to unity at run time. In industrial physics we set it from the 
+	    very begining.   </p>
+<footer>		
+    e-mail: shimon dot panfil at gmail dot com. Please add SPIPS to subject. 
+</footer>
+</body>
+</html>
+

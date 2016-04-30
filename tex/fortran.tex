@@ -1,0 +1,458 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author: Shimon Panfil                                           %
+% Copyright (c) Shimon Panfil Industrial Physics and Simulations  %
+% http://industrialphys.com                                       %
+%                                                                 %
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, %
+% EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES % 
+% OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND        %
+% NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT     %
+% HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY.    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{beamer}
+\usepackage[utf8x]{inputenc}
+\mode<presentation>
+{
+  \usetheme{default}
+}
+\title {Fortran Returns}
+\author[Shimon Panfil]{Shimon Panfil,Ph. D.}
+\institute{Industrial Physics and Simulations \\
+    http://industrialphys.com/}
+\date{\today}
+\begin{document}
+\frame{\titlepage}
+\frame{
+    \frametitle{Contents}
+    \tableofcontents
+}
+\section{Fortran History}
+\subsection{Prehistory, before 1970}
+\frame {
+\frametitle{Prehistory, before 1970}
+FORTRAN ({\bf For}mula {\bf Tran}slating) is the first ever created programming language \cite{wiki-fortran}.
+In late 1953, John W. Backus submitted a proposal to his superiors at IBM to develop a more practical alternative to assembly language for programming their IBM 704 mainframe computer. 
+ The first manual for FORTRAN appeared in October 1956, with the first FORTRAN compiler delivered in April 1957. This was an optimizing compiler, because customers were reluctant to use a high-level programming language unless its compiler could generate code whose performance was comparable to that of hand-coded assembly language.
+}
+\frame {
+\frametitle{Prehistory, before 1970}
+The language was widely adopted by scientists for writing numerically intensive programs, which encouraged compiler writers to produce compilers that could generate faster and more efficient code. The inclusion of a complex number data type in the language made FORTRAN especially suited to technical applications such as electrical engineering. The increasing popularity of FORTRAN spurred competing computer manufacturers to provide FORTRAN compilers for their machines, so that by 1963 over 40 FORTRAN compilers existed. For these reasons, FORTRAN is considered to be the first widely used programming language supported across a variety of computer architectures.
+}
+\frame {
+\frametitle{Prehistory, before 1970}
+New era of portable software has started. FORTRAN was a practical solution it was not absolutely machine-independent and has few other deficiencies. An attempt to produce more theoretically sound and clean programming language yielded ALGOL ({\bf Algo}rithmic {\bf L}anguage) in 1958 \cite {wiki-algol}. ALGOL greatly influenced many other languages and became the de facto way algorithms were described in textbooks and academic works for almost the next 30 years. It was implemented for a number of computers but has never got as popular as FORTRAN for professional programming. In university (the beginning of 70s) I was taught ALGOL in basic programming course, but more advanced courses used FORTRAN.  
+} 
+\frame {
+\frametitle{LISP}
+LISP was invented by John McCarthy in 1958 \cite {wiki-lisp}. LISP was originally created as a practical mathematical notation for computer programs and quickly became the favored programming language for artificial intelligence (AI) research. As one of the earliest programming languages, LISP pioneered many ideas in computer science, including tree data structures, automatic storage management, dynamic typing, and the self-hosting compiler. LISP was first implemented by Steve Russell on an IBM 704 computer. Russell had read McCarthy's paper, and realized ({\bf to McCarthy's surprise!}) that the LISP eval function could be implemented in machine code. 
+}
+\frame {
+\frametitle{LISP vs. FORTRAN}
+Note the difference: FORTRAN was invented to make practical programming more efficient, LISP was implemented on the same machine at the same time to the surprise of its author.\footnote {Cf. Dijkstra: "Computer science is no more about computers than astronomy is about telescopes." The design and deployment of computers and computer systems is generally considered the province of disciplines other than computer science \cite {wiki-cs}.}
+}
+\frame {
+\frametitle{COBOL}
+To complete the description I must mention COBOL ({\bf Co}mmon {\bf B}isness {\bf O}riented {\bf L}anguage) \cite {wiki-cobol} which appeared in 1959 and became the most popular programming language. In 1997, the Gartner Group reported that 80\% of the world's business ran on COBOL with over 200 billion lines of code in existence and with an estimated 5 billion lines of new code annually.
+}
+\frame{
+\frametitle{Prehistory, before 1970}
+So prehistoric programmers were divided into three groups:
+\begin{description}
+\item[Business] The largest group using COBOL;
+\item[Numerical] Scientists and engineers using FORTRAN for computation and sometimes ALGOL  for publications;
+\item[Theoretics] Small but fast growing and active group using all other languages.
+\end{description}
+I shall discuss only numerical programming below, I myself belong to this group and have no professional knowledge in other kinds of programming. 
+}
+\frame {
+\frametitle{Prehistory, before 1970}
+Current state of FORTRAN was defined by the first standard became known as FORTRAN 66 (although many continued to refer to it as FORTRAN IV, the language upon which the standard was largely based). FORTRAN 66 effectively became the first "industry-standard" version of FORTRAN. 
+
+Note that operating systems are not invented yet. FORTRAN 66 is not merely compiler but "Programming system" comprising all means needed to use computer.
+}
+\subsection{Ancient Times, 1970s-1980s}
+\frame {
+\frametitle{Ancient Times, 1970s-1980s}
+After the release of the FORTRAN 66 standard, compiler vendors introduced a number of extensions to "Standard Fortran", prompting ANSI in 1969 to begin work on revising the 1966 standard. Final drafts of this revised standard circulated in 1977, leading to formal approval of the new FORTRAN standard in April 1978. The new standard, known as FORTRAN 77, added a number of significant features to address many of the shortcomings of FORTRAN 66.
+}
+\frame {
+\frametitle{Ancient Times, 1970s-1980s}
+    In this revision of the standard, a number of features were removed or altered in a manner that might invalidate previously standard-conforming programs. (Removal was the only allowable alternative to  at that time, since the concept of "deprecation" was not yet available for ANSI standards.) 
+
+Operating systems came to exist which take many functions from "programming systems" leaving them merely compiler and libraries. New programming languages appear, the most notable were UNIX and C. FORTRAN 77 became old fashioned but still preferred language for numerical programs (\cite{class-fort},\cite{page}). 
+}
+\subsection{Medieval Period, 1980-2005}
+\frame{
+\frametitle{Medieval Period, 1980-2005}
+    Mini-computers, micro-computers, personal computers, multimedia, internet, Windows \ldots !
+    Intensive  growth of non-numerical applications on one hand and development of "user-friendly" numerical software like Matlab, Mathematica, Maple on the other hand  have overshadowed numerical programming. (Scientific or numerical problem? It is Matlab!)
+
+    The numerical programming community is still active but bound to large computer centers in industry, national laboratories and universities. High Performance Computer vendors provide efficient Fortran compilers for their machines and people working on new Fortran standards \cite{f90-epl}. In particular Fortran 90 standard includes all features necessary for modern descent language:
+}
+\frame{
+\frametitle{Fortran 90}
+\begin {itemize}
+    \item Free-form source input, also with lowercase Fortran keywords
+    \item Identifiers up to 31 characters in length
+    \item Inline comments
+    \item Ability to operate on arrays (or array sections) as a whole, thus greatly simplifying math and engineering computations.
+ 
+    \item RECURSIVE procedures
+    \item Modules, to group related procedures and data together, and make them available to other program units, including the capability to limit the accessibility to only specific parts of the module.
+    \item A vastly improved argument-passing mechanism, allowing interfaces to be checked at compile time
+    \item User-written interfaces for generic procedures
+    \item Operator overloading
+    \item Derived/abstract data types
+
+\end {itemize}
+}
+\frame{
+\frametitle{Fortran 90}
+\begin {itemize}
+    \item New data type declaration syntax, to specify the data type and other attributes of variables
+    \item Dynamic memory allocation by means of the ALLOCATABLE attribute and the ALLOCATE and DEALLOCATE statements
+    \item POINTER attribute, pointer assignment, and NULLIFY statement to facilitate the creation and manipulation of dynamic data structures
+    \item Structured looping constructs, with an END DO statement for loop termination, and EXIT and CYCLE statements for "breaking out" of normal DO loop iterations in an orderly way
+    \item SELECT . . . CASE construct for multi-way selection
+    \item Portable specification of numerical precision under the user's control \footnote {Absolutely senseless and misleading feature} 
+    \item New and enhanced intrinsic procedures.
+\end {itemize}
+}
+\frame{
+\frametitle{Medieval Period, 1980-2005}
+Fortran 95 was a minor revision, mostly to resolve some outstanding issues from the Fortran 90 standard. Nevertheless, Fortran 95 also added a number of extensions, notably from the High Performance Fortran specification:
+\begin{itemize}
+    \item FORALL and nested WHERE constructs to aid vectorization
+    \item User-defined PURE and ELEMENTAL procedures
+    \item Pointer initialization and structure default initialization.
+\end {itemize}
+A number of intrinsic functions were extended (for example a dim argument was added to the maxloc intrinsic).
+
+Several features noted in Fortran 90 to be deprecated were removed from Fortran 95.
+}
+\frame{
+\frametitle{Medieval Period, 1980-2005}
+F (programming language)\cite {f-ep} was designed to be a clean subset of Fortran 95 that attempted to remove the redundant, unstructured, and deprecated features of Fortran, such as the EQUIVALENCE statement. F retains the array features added in Fortran 90, and removes control statements that were obsoleted by structured programming constructs added to both Fortran 77 and Fortran 90. F is described by its creators as "a compiled, structured, array programming language especially well suited to education and scientific computing." 
+}
+\frame{
+\frametitle{Medieval Period, 1980-2005}
+However these attempts have (how to put it mildly?) only restricted success. Why?
+Because of a number of reasons:
+\begin{itemize}
+\item Most of most of modern computer professionals including lecturers and book authors in programming know nothing about numerical programming and their recommendations on programming style and methodology are in many cases counterproductive when applied to this field;
+\item Modern programming languages like C, C++, Java,\ldots were designed primarily for non-numerical applications and are not efficient when applied to numerical programming;
+\end{itemize}
+}
+\frame{
+\frametitle{Medieval Period, 1980-2005}
+\begin{itemize}
+\item Battle tested legacy code is written in old (FORTRAN 77 mainly) standard, so modern Fortran is not enough, one must learn also old one, but in this case why bother to new 2 languages, so even newcomers are tempted to stay with FORTRAN 77;
+\item Even modern Fortran is at odds with operating systems;
+\item There is no open source modern Fortran compiler for Linux, which prevents use of modern Fortran on Linux clusters  (well known poor man supercomputer).
+\end{itemize}
+}
+\subsection {Our Times}
+\frame{
+\frametitle{Our Times}
+ New standard Fortran 2003 adds the following features:
+   \begin{itemize}
+	\item Derived type enhancements
+	\item Object-oriented programming support: type extension and inheritance, 
+	    polymorphism, dynamic type allocation, and type-bound procedures.
+	\item Data manipulation enhancements:  VOLATILE attribute,  pointer enhancements, extended 
+	    initialization expressions, and enhanced intrinsic procedures.
+	\item Input/output enhancements: asynchronous transfer, stream access ... 
+	\item Support for IEEE floating-point arithmetic and floating point exception handling 
+	\item Interoperability with the C programming language.
+	\item Enhanced integration with the host operating system
+    \end{itemize}
+}
+\frame{
+\frametitle{Our Times}
+Efforts are underway to develop a revision to Fortran 2003, tentatively called Fortran 2008. As with Fortran 95, this is intended to be a minor upgrade, incorporating clarifications and corrections to Fortran 2003. 
+
+However the most important development is that Gnu Compiler Collection now includes Fortran 2003!
+ Before 2005, gcc included g77, which implements FORTRAN 77 standard with some
+    extensions. Development of the replacement was started in 2000 (g95 project \cite{g95}). In 2003
+    gfortran \cite {gfortran} forked from g95 and became a part of gcc from version 4.0. It includes support for the
+    Fortran 95 language and is compatible with most language extensions supported by g77, allowing
+    it to serve as a drop-in replacement in many cases. Parts of Fortran 2003 and Fortran 2008
+    have also been implemented. A number of commercial compilers for Windows and Linux also came to exist. 
+}
+\frame{
+\frametitle{Modern Fortran}
+Modern Fortran standard is typical "designed by committee"\footnote {"A camel is a horse designed by committee"} product. The defining characteristics of "design by committee" are needless complexity, internal inconsistency, logical flaws, banality, and the lack of a unifying vision  \cite{camel}.
+
+Relation between FORTRAN 77 and Fortran 2003 resembles that between C and C++. Both C and FORTRAN 77 are small and easy to learn (though both have some strange features historically motivated) while both C++ and Fortran 2003 are large and bloated (however they improved their predecessors in a way). Specifically the most important improvement that C++ makes over C --- that it made many more jobs for programmers is beyond the scope of the article, and second one --- double slash comment was present in C as gcc extension for years. 
+}
+\frame{
+\frametitle{Modern Fortran improvements}
+Fortran 2003 improvements are:
+\begin{enumerate}
+\item Dynamic memory allocation;
+\item Pointers (different form C pointers!);
+\item C and OS interoperability;
+\item derived types (similar to C-structures);
+\item modules;
+\item recursive procedures;
+\item whole array operations.
+\end{enumerate}
+}
+\frame{
+\frametitle{Modern Fortran deprovement}
+ The most essential deprovement  is kind parameter for real numbers: instead of usual single and double precision, modern Fortran allows you to define formally real(kind) to get the accuracy and range as you want. "Portable specification of numerical precision under the user's control" as it is described. However  this is misleading because system will silently replace your definition by standard one or return error if none of standard types: 4 byte float, 8 byte double,  10 byte  (x86-64) or 16 byte long double --- can be used. 
+ }
+\section{Fortran 2003 for C programmers}
+\frame{
+\frametitle{Fortran 2003 for C programmers}
+Most of modern Fortran constructions  which may look strange for FORTRAN 77 programmers are quite natural for C-programmers (e.g. using pointers and structures for building liked lists etc), though care is needed due to some differences (see Fortran language description e.g. \cite {chapman},\cite {f2003-handbook}, \cite {f2003-guide} and \cite {f2003-intro}). For example though it may seem strange for C programmer, this program works. Explanation is that every initialized variable gets save attribute automatically.
+}
+\begin{frame}[fragile]
+\begin{verbatim}
+program saveprog
+    call s()
+    call s()
+    call s()
+contains
+    subroutine s()
+        integer::count=0
+        count=count+1
+        print *,"execution",count
+    end subroutine s
+end program saveprog    
+\end{verbatim}
+\end{frame}
+
+\frame{
+\frametitle{Fortran 2003 for C programmers}
+Below I will describe few modern Fortran features which are most useful in filling the gap between FORTRAN 77 tradition of scientific programming and modern  languages and computers.
+}
+\subsection{Modules}
+\frame{
+\frametitle{Modules}
+Modules allow to keep together data and functions logically connected. Fortran modules combine C include files with precompiled libraries. Actually modules are the preferred way to build libraries (not only in Fortran). Let us look at the example --- well known random number generator:
+}
+\begin{frame}[fragile]
+\frametitle{Modules}
+\begin{verbatim}
+module marsaglia
+implicit none
+private
+public :: kiss, kisset
+   INTEGER :: x=123456789, y=362436069, z=521288629, w=916191069
+contains
+   FUNCTION kiss ()
+      integer :: kiss
+      x = 69069 * x + 1327217885
+      y = m (m (m (y, 13), - 17), 5)
+      z = 18000 * iand (z, 65535) + ishft (z, - 16)
+      w = 30903 * iand (w, 65535) + ishft (w, - 16)
+      kiss = x + y + ishft (z, 16) + w
+\end{verbatim}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Modules}
+\begin{verbatim}
+   contains
+      function m(k, n)
+         integer :: m, k, n
+         m = ieor (k, ishft (k, n) )
+      end function m
+   END FUNCTION kiss
+   function kisset (ix, iy, iz, iw)
+      integer :: kisset, ix, iy, iz, iw
+      x = ix
+      y = iy
+      z = iz
+      w = iw
+      kisset = 1
+   end function kisset
+end module marsaglia
+\end{verbatim}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Modules}
+The program or another model should issue "use" statement, e.g. 
+\begin{verbatim}
+PROGRAM example
+   use marsaglia
+   PRINT *, kiss ()
+   PRINT *, kisset (1, 2, 3, 4)
+   PRINT *, kiss ()
+END PROGRAM example
+\end{verbatim}
+Actually there is much more to say about the modules (you need not use all the members of module,
+you can rename members etc.) however I hope that this example demonstrates the way of gradual rewriting
+and improving of legacy code. You start from modules which simply call old functions, and then add members
+which improve the old ones.
+\end{frame}
+\subsection{Arrays}
+\frame{
+\frametitle{Arrays}
+Arrays in modern Fortran are first class citizens and they are multidimensional (up to 7) as in FORTRAN 77, but
+they also can be dynamically allocated as in C. Note that allocated arrays are not pointers.
+}
+\begin{frame}[fragile]
+\begin{verbatim}
+program mm3
+    integer :: n,cac,i,j,k
+    real,allocatable, dimension(:,:) :: a,b,c1,c2
+    CHARACTER(len=32) :: arg
+    real::start_time,stop_time
+    real, parameter:: eps=1.0e-15
+    cac=command_argument_count()
+    if(cac/=1) then
+        print *,"need 1 argument: dimension"
+        stop
+    end if    
+    CALL get_command_argument(1, arg)
+    read (arg,*) n
+    print *,"dimension=",n
+    call cpu_time(start_time)
+    allocate(a(n,n),b(n,n),c1(n,n),c2(n,n))
+\end{verbatim}
+\end{frame}
+\begin{frame}[fragile]
+\begin{verbatim}
+    call random_seed()
+    call random_number(a)
+    call random_number(b)  
+    call cpu_time(stop_time)
+    print *,"matrix preparation",stop_time-start_time,"s"
+    call cpu_time(start_time)
+    c1=matmul(a,b)
+    call cpu_time(stop_time)
+    print *,"matmul",stop_time-start_time,"s"
+    call cpu_time(start_time)
+    c2=0.0
+\end{verbatim}
+\end{frame}
+\begin{frame}[fragile]
+\begin{verbatim}
+
+    do i=1,n
+        do j=1,n
+            do k=1,n
+                c2(i,j)=c2(i,j)+a(i,k)*b(k,j)
+            end do
+        end do
+    end do
+    call cpu_time(stop_time)
+    print *,"loop ijk",stop_time-start_time,"s"
+    if(any(abs(c1-c2)>eps)) then
+        print *,"different values, stop"
+        stop
+    end if
+end program mm3
+\end{verbatim}
+\end{frame}
+\begin{frame}[fragile]
+Output of that program shows clearly that good algorithm (in this case proper order of loops)
+is much more important than compiler optimization:
+\begin{verbatim}
+ dimension=        2000
+ matrix preparation  0.16998800000000000      s
+ matmul   13.462455000000000      s
+ loop ijk   114.15922400000001      s
+ loop ikj   280.43838099999999      s
+ loop jik   116.78571899999997      s
+ loop jki   15.608983000000080      s
+ loop kji   22.701852999999915      s
+ loop kij   280.77169299999991      s
+\end{verbatim}
+\end{frame}
+\subsection{Pointers}
+\frame{
+\frametitle{Pointers}
+The amount of senseless discussions about pointers can be compared only with that about goto \footnote{Compare "Letter O considered harmful" \cite {wiki-fortran}}.
+The sentence like "Pointers are dangerous \ldots " have no more content than "Use of integers is extremely dangerous, while real numbers mostly obey the rules of mathematics, integers do not:$1/2*2 =0$ use integers only when you absolutely need to!" or "Use of real numbers is extremely dangerous, they do not obey rules of mathematics:\[pow(10.0,300)-pow(10.0,300)+1=1.0\] while \[pow(10.0,300)+1-pow(10.0,300)=0.0\] use real numbers only when you absolutely need to!".
+}
+\frame{
+\frametitle{Pointers}
+Actually neither pointers nor goto is evil. Unreasonable usage of any construction lead to poorly written programs and so does unreasonable prohibition. Pointers in Fortran are not merely addresses, they contain plenty of information about the object they point to. There is no pointer arithmetics. One can use them for building lists, trees and all that exactly as in C. However the main convenience of using pointers is demonstrated by the example --- it is clear and compact representation of expressions, which helps to write complicated equations without errors.
+}
+\begin{frame}[fragile]
+\begin{verbatim} 
+program heat_transfer
+    implicit none
+    integer ::m,n,c
+    CHARACTER(len=32) :: arg
+    real ::coeff
+    real, allocatable, dimension(:,:), target :: plate
+    real, allocatable, dimension(:,:) :: temp
+    real, pointer, dimension(:,:) :: north, east, &
+    south, west, inside
+    real, parameter :: tolerance =1.0e-4    
+    real :: diff
+    integer ::j,niter
+    c=command_argument_count()
+    if(c/=2) then
+        print *,"need 2 arguments"
+        stop
+    end if  
+\end{verbatim}
+\end{frame}
+\begin{frame}[fragile] 
+\begin{verbatim}
+    CALL get_command_argument(1, arg)
+    read (arg,'(I10)') m
+    CALL get_command_argument(2, arg)
+    read (arg,'(I10)') n
+    allocate(plate(m,n))
+    allocate(temp(m-2,n-2))
+ !initial conditions
+    plate=0.0
+    !boundary conditions
+    plate(1:m,1)=1.0
+    coeff=1.0/n
+    plate(1,1:n)=[(coeff*j,j=n,1,-1)]
+    inside=>plate(2:m-1,2:n-1)
+    north=>plate(1:m-2,2:n-1)
+    south=>plate(3:m,2:n-1)
+    east=>plate(2:m-1,1:n-2)
+    west=>plate(2:m-1,3:n)
+\end{verbatim}
+\end{frame}
+\begin{frame}[fragile] 
+\begin{verbatim}
+    niter=0
+    do
+        temp=0.25*(north+east+south+west)
+        diff=maxval(abs(temp-inside))
+        niter=niter+1
+        inside=temp
+        if(diff<tolerance) then
+            exit
+        endif
+    end do
+    print *,plate(m/2,:)
+end program heat_transfer
+\end{verbatim}
+\end{frame}
+ 
+\begin{thebibliography}{99}
+\frame{
+\frametitle{References}
+\bibitem {wiki-fortran}\href{http://en.wikipedia.org/wiki/Fortran}{http://en.wikipedia.org/wiki/Fortran}
+\bibitem {wiki-algol}\href{http://en.wikipedia.org/wiki/ALGOL}{http://en.wikipedia.org/wiki/ALGOL}
+\bibitem{wiki-lisp} \href{http://en.wikipedia.org/wiki/Lisp_(programming_language)}{http://en.wikipedia.org/wiki/Lisp\_(programming\_language)}
+\bibitem{wiki-cobol} \href{http://en.wikipedia.org/wiki/COBOL}{http://en.wikipedia.org/wiki/COBOL}
+\bibitem {wiki-cs}\href{http://en.wikipedia.org/wiki/Computer_science}{http://en.wikipedia.org/wiki/Computer\_science}
+\bibitem {class-fort} M. Kupferschmid. Classical Fortran. Marcel Dekker, 2002 
+\bibitem {page} Clive G. Page. Professional Programmer's Guide to Fortran77, 2005
+\bibitem {f90-epl} T. M. R. Ellis, Ivor R. Philips, and Thomas M. Lahey. Fortran 90 programming. Addison-Wesley, 1994
+\bibitem {f-ep} T. M. R. Ellis and Ivor R. Philips. Programming in F. Addison-Wesley, 1998
+}
+\frame{
+\frametitle{References}
+\bibitem {g95}\href{http://www.g95.org/}{http://www.g95.org/}
+\bibitem {gfortran}\href{http://www.gfortran.org/}{http://www.gfortran.org/}
+\bibitem {camel} \href{http://en.wikipedia.org/wiki/Design_by_committee}{http://en.wikipedia.org/wiki/Design\_by\_committee}
+\bibitem {chapman} Stephen J. Chapman Fortran 95/2003 for Scientists and Engineers. McGraw-Hill, 2007
+\bibitem {f2003-handbook} Jeanne C. Adams, Walter S. Brainerd, Richard A. Hendrickson, Richard E. Maine, Jeanne T. Martin, Brian T. Smith. The Fortran 2003 Handbook, Springer 2009
+\bibitem {f2003-guide} Walter S. Brainerd. Guide to Fortran 2003 Programming. Springer 2009
+\bibitem {f2003-intro} Ian Chivers, Jane Sleightholme. Introduction to Programming with Fortran. Springer 2006
+}
+\end{thebibliography}
+
+\end {document}
