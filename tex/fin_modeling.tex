@@ -1,0 +1,54 @@
+\documentclass[12pt]{article} 
+\usepackage[utf8]{inputenc} 
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{tikz}
+\title{Some Notes on Financial Modeling}
+\author{Shimon Panfil}
+%\date{} 
+ 
+\begin{document}
+\maketitle
+\section{Introduction}
+Applications of methods of statistical physics  to financial markets are very popular these days. General idea is that market participant actions determine prices like particle interactions determine thermodynamics. This is rather far fetched however. Though similarity in behaviour of rational  and intelligent traders with that of molecules is disputable, the fact that the number of traders say $10^5-10^6$ is negligible in comparison with characteristic thermodynamic number which is of order of $10^{23}$ (Avogadro number)  makes this analogy questionable at least.
+
+Actually this means that talking about renormalization group, scaling, phase  transitions etc\ldots regarding financial market makes no sense and is complete BS \footnote{BS may stand for BullShit or Black-Scholes depending on  context}. Nevertheless the application of physical ideas to financial market does make sense but in the context of dynamical systems and multiple time scales.
+
+\section{Observables}
+Every event affecting market microstructure (setting or cancellation of order, transaction etc\ldots) is recorded and stored in proper data base. These events (tick-by-tick data) are actually financial market observables and  should be the base of all theories. These data are not regularly spaced in time and their time distribution is very important. Aggregating of data, filtering, subsampling, averaging and all that in attempt to make them regular for the sake of simplicity and applicability standard algorithms leads to loosing information and hence unacceptable.
+
+The main difference between physics and financial market theory is that financial market observables (raw tick-by-tick data)  are generally not available though they do exist\footnote{Another important difference is: if physicist find something good he publishes it, financial theorist on the contrary publishes only what is not working (saving working things for himself to make money.}.
+
+Let us suppose that we have access to raw data say for one day, which may be a table with  first column containing ticks  and second column containing corresponding  returns for some asset. We shall see immediately that both ticks and returns vary irregularly on scale of a fraction of second. These are our fast variables. They are actually so fast that may be considered stochastic on a larger time scale (a hour for example). We may suppose that returns are represented by BS process with volatility $\sigma$ and ticks are distributed somehow (e.g. exponentially)  with parameter $\lambda$ which we  call activity.
+\section {Dynamical model}
+Reasonable dynamical model which determines dependency of $\sigma$ and $\lambda$ on time, might be Lotka-Volterra system. 
+\begin{eqnarray}
+    \frac{d\sigma}{d  t} &=& -\sigma(a-b\lambda) \nonumber \\
+    \frac{d\lambda}{d t} &=& \lambda(c-d\sigma) \label{LV}
+\end{eqnarray}
+Here parameters $a,b,c,d$ considered to be constant on given time scale, but may depend on time on larger time scales (to describe seasonality patterns).
+
+This model is chosen as simplest nonlinear one. Surely more general dynamic models are possible but they need more parameters to fit. Note that this is pure dynamic model, though stochastic models of such type are known in the literature.
+\section{Variable time step}
+let $P$ be usual BS propagator
+\begin{equation}
+    P(x,t)=\frac{1}{\sqrt{2\pi \sigma^2 t}}e^{-\frac{x^2}{2\sigma^2 t}} \label{pbs}
+\end{equation} 
+If we fix some exponential distribution of time steps like
+\begin{equation}
+    f(t)=\lambda e^{-\lambda t} \label{etstep}
+\end{equation}
+and make an average
+\begin{equation}
+    <P(x)>=\int_0^\infty P(x,t) f(t) dt=\frac{1}{2 a} e^{-\frac{|x|}{a}} \label{ebs}
+\end{equation}
+where $a=\sigma/\sqrt{2\lambda}$. So not uniform time stepping yields heavy tails after averaging.
+\section{Summary}
+The following is stated:
+\begin{enumerate}
+    \item raw data access is necessary for  serious work;
+    \item time scale hierarchy should be fixed;
+    \item only fast variables (smallest time scale) are stochastic, all other pure dynamical;
+    \item averaging over non-uniform time stepping may lead to heavy tails.
+\end{enumerate}
+\end{document}
