@@ -1,28 +1,32 @@
 header {
-    background-color:#d9d9d9;
-    overflow:hidden;	
+    background-color:#f0f0f0;
+    overflow:hidden;
+    font-weight: bold;
+    border:1px solid black;
    }
 footer {
     clear:both;
-    background-color:#d9d9d9;
+    background-color:#f0f0f0;
     overflow:hidden;	
+    border:1px solid black;
  }
 
 nav {
-    background-color:#cccccc;
+  #  background-color:#f0f0f0;
     overflow:hidden;
-    border:1px solid black;
+ #   border:1px solid black;
+    font-weight: bold;
 }
 
 nav a {
     float:left;
     text-decoration: none;
     color:black;
-    border:1px solid black;
+#    border:1px solid black;
     margin:4px;
 }
 nav a:hover {
-    background-color: #dddddd;
+    background-color: #f0f0f0;
 }
 nav a:last-child {
     float:right;
